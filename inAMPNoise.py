@@ -3,6 +3,7 @@ import pyautogui
 import os
 import shutil
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
@@ -16,7 +17,10 @@ class InAMP(unittest.TestCase):
     def setUp(self):
         # driver instance
         chromedriver_autoinstaller.install()
-        self.driver = webdriver.Chrome()
+        options = Options()
+        options.headless = True
+        options.add_argument("--headless=new")
+        self.driver = webdriver.Chrome(options=options)
         with open(r'inAMPNoise.json') as d:
             self.nimbleData = json.load(d)['Nimble'][0]
 
